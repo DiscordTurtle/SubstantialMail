@@ -1,11 +1,12 @@
 import button
 import printer
-import signal
 import mail
 import time
+import display
+import sound
 
 latest_email: mail.ReceivedMail = None
-amount_unread: int = 0
+amount_unread: int = -1
 
 def button_callback():
     global amount_unread
@@ -28,11 +29,16 @@ def button_callback():
 def main():
     global latest_email, amount_unread
     button.set_callback(button_callback)
+    display.init()
+    sound.init()
     while True:
         unread_indexes = mail.get_unread_indexes()
-        amount_unread = len(unread_indexes)
-        if (amount_unread > 0):
-            latest_email = mail.read_message_by_index(unread_indexes[-1])       
+        if (amount_unread != len(unread_indexes)):
+            amount_unread = len(unread_indexes)
+            if (amount_unread > 0):
+                latest_email = mail.read_message_by_index(unread_indexes[-1])
+            display.set_mail_info(latest_email, amount_unread)
+            sound.play_effect()
         time.sleep(5)
 
 if __name__ == "__main__":

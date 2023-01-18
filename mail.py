@@ -6,6 +6,8 @@ import re
 
 USERNAME = "substantialmail@gmail.com"
 PASSWORD = "bowxqkamcinneykp"
+# USERNAME = "daansteenbergen2@gmail.com"
+# PASSWORD = "hzbajvgzqniljkwz"
 IMAP_SERVER = "imap.gmail.com"
 
 imap = imaplib.IMAP4_SSL(IMAP_SERVER)
